@@ -1,19 +1,15 @@
-
 package javadoggroomingapp.ui;
 
-
 import java.awt.Font;
-import java.lang.System.Logger;
 import java.util.List;
 import javadoggroomingapp.domain.Appointment;
 import javadoggroomingapp.domain.Salon;
 import javadoggroomingapp.domain.User;
+import javadoggroomingapp.domain.TreatmentType;
 import javadoggroomingapp.repository.DatabaseRepository;
 import javadoggroomingapp.ui.components.table.model.AppointmentTableModel;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
-
 import javax.swing.JComboBox;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -26,19 +22,19 @@ public class MainForm extends javax.swing.JFrame {
 
     /**
      * Creates new form MainForm
+     * @param currentUser
      */
     public MainForm(User currentUser) {
-        
-        
-        for(Salon s:new DatabaseRepository().getSalons()){
+
+        for (Salon s : new DatabaseRepository().getSalons()) {
             System.out.println(s.toString());
         }
 
         initComponents();
         System.out.println("Logged in as: " + currentUser.getUsername());
         populateForm();
-        populateCombroSalonFilter();
-        
+        populateComboSalonFilter();
+
     }
 
     /**
@@ -61,6 +57,7 @@ public class MainForm extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
@@ -116,6 +113,10 @@ public class MainForm extends javax.swing.JFrame {
         jMenu4.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jMenuBar1.add(jMenu4);
 
+        jMenu3.setText("Price Rates Iformation");
+        jMenu3.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -123,52 +124,47 @@ public class MainForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(128, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(98, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbSalonFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1012, 1012, 1012))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1071, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(262, 262, 262))
+                        .addGap(577, 577, 577)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1071, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addGap(97, 97, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(65, 65, 65)
+                .addComponent(jLabel1)
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(cmbSalonFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
                         .addComponent(jButton3)
-                        .addGap(20, 20, 20)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton2)
-                        .addGap(19, 19, 19)
+                        .addGap(20, 20, 20)
                         .addComponent(jButton1)))
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cmbSalonFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cmbSalonFilter;
@@ -179,6 +175,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -190,21 +187,46 @@ public class MainForm extends javax.swing.JFrame {
         try {
             List<Appointment> appointments = new DatabaseRepository().getAppointments();
             tblAppointments.setModel(new AppointmentTableModel(appointments));
-
-            TableColumnModel tcm = tblAppointments.getColumnModel();
-            TableColumn columnDog = tcm.getColumn(1);
-
-            JComboBox comboDog = new JComboBox(new DefaultComboBoxModel(new DatabaseRepository().getDogs().toArray()));
-            columnDog.setCellEditor(new DefaultCellEditor(comboDog));
-            comboDog.setFont(new Font("Segoe UI Light",Font.PLAIN, 14));
             tblAppointments.setAutoCreateRowSorter(true);
-            
+
+            fillComboDog();
+            fillComboSalon();
+            fillComboTreatmentType();
+
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    private void populateCombroSalonFilter() {
-       cmbSalonFilter.setModel(new DefaultComboBoxModel(new DatabaseRepository().getSalons().toArray()));
+    private void populateComboSalonFilter() {
+        cmbSalonFilter.setModel(new DefaultComboBoxModel(new DatabaseRepository().getSalons().toArray()));
+    }
+
+    private void fillComboDog() {
+        TableColumnModel tcm = tblAppointments.getColumnModel();
+        TableColumn columnDog = tcm.getColumn(1);
+
+        JComboBox comboDog = new JComboBox(new DefaultComboBoxModel(new DatabaseRepository().getDogs().toArray()));
+        columnDog.setCellEditor(new DefaultCellEditor(comboDog));
+        comboDog.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
+        
+    }
+
+    private void fillComboSalon() {
+        TableColumnModel tcm = tblAppointments.getColumnModel();
+        TableColumn columnDog = tcm.getColumn(2);
+
+        JComboBox comboSalon = new JComboBox(new DefaultComboBoxModel(new DatabaseRepository().getSalons().toArray()));
+        columnDog.setCellEditor(new DefaultCellEditor(comboSalon));
+        comboSalon.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
+    }
+
+    private void fillComboTreatmentType() {
+        TableColumnModel tcm = tblAppointments.getColumnModel();
+        TableColumn columnDog = tcm.getColumn(5);
+
+        JComboBox comboTreatmentType = new JComboBox(new DefaultComboBoxModel(TreatmentType.values()));
+        columnDog.setCellEditor(new DefaultCellEditor(comboTreatmentType));
+        comboTreatmentType.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
     }
 }
