@@ -1,8 +1,10 @@
 package javadoggroomingapp.ui;
 
 import java.awt.Font;
+import java.time.LocalDateTime;
 import java.util.List;
 import javadoggroomingapp.domain.Appointment;
+import javadoggroomingapp.domain.Dog;
 import javadoggroomingapp.domain.Salon;
 import javadoggroomingapp.domain.User;
 import javadoggroomingapp.domain.TreatmentType;
@@ -11,6 +13,8 @@ import javadoggroomingapp.ui.components.table.model.AppointmentTableModel;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
@@ -22,6 +26,7 @@ public class MainForm extends javax.swing.JFrame {
 
     /**
      * Creates new form MainForm
+     *
      * @param currentUser
      */
     public MainForm(User currentUser) {
@@ -32,7 +37,7 @@ public class MainForm extends javax.swing.JFrame {
 
         initComponents();
         System.out.println("Logged in as: " + currentUser.getUsername());
-        populateForm();
+        populateTable();
         populateComboSalonFilter();
 
     }
@@ -49,8 +54,8 @@ public class MainForm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAppointments = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAddAppointment = new javax.swing.JButton();
+        btnRemoveAppointment = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         brtViewAll = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -90,14 +95,19 @@ public class MainForm extends javax.swing.JFrame {
         tblAppointments.setRowHeight(30);
         jScrollPane1.setViewportView(tblAppointments);
 
-        jButton1.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        jButton1.setText("Add new appointment");
-
-        jButton2.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        jButton2.setText("Remove appointment");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAddAppointment.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        btnAddAppointment.setText("Add new appointment");
+        btnAddAppointment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAddAppointmentActionPerformed(evt);
+            }
+        });
+
+        btnRemoveAppointment.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        btnRemoveAppointment.setText("Cancel appointment");
+        btnRemoveAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveAppointmentActionPerformed(evt);
             }
         });
 
@@ -151,7 +161,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(btnAddAppointment))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -164,7 +174,7 @@ public class MainForm extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(723, 723, 723)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnRemoveAppointment, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addGap(97, 97, Short.MAX_VALUE))
         );
@@ -178,7 +188,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addGap(36, 36, 36))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1)
+                        .addComponent(btnAddAppointment)
                         .addGap(18, 18, 18)))
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -188,7 +198,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addComponent(cmbSalonFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(brtViewAll))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnRemoveAppointment)
                         .addGap(47, 47, 47)))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,22 +215,42 @@ public class MainForm extends javax.swing.JFrame {
 
     private void brtViewAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brtViewAllActionPerformed
         Salon selectedSalon = (Salon) cmbSalonFilter.getSelectedItem();
-        if(selectedSalon == null) return;
-        populateForm();
+        if (selectedSalon == null) {
+            return;
+        }
+        populateTable();
     }//GEN-LAST:event_brtViewAllActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnRemoveAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAppointmentActionPerformed
+        if (JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel this appointment?") == 0) {
+            AppointmentTableModel appointmentTableModel = (AppointmentTableModel) tblAppointments.getModel();
+            int selectedAppointment = tblAppointments.getRowSorter().convertRowIndexToModel(tblAppointments.getSelectedRow());
+            appointmentTableModel.remove(selectedAppointment);
+        }
+
+
+    }//GEN-LAST:event_btnRemoveAppointmentActionPerformed
+
+    private void btnAddAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAppointmentActionPerformed
         AppointmentTableModel appointmentTableModel = (AppointmentTableModel) tblAppointments.getModel();
-        //Appointment selectedAppointment = tblAppointments.getSelectionModel();
-        //appointmentTableModel.remove(selectedAppointment);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        Dog dog = new DatabaseRepository().getDogs().get(0);
+        Salon salon = new DatabaseRepository().getSalons().get(0);
+        LocalDateTime dateTime = LocalDateTime.now();
+        TreatmentType treatmentType = TreatmentType.AESTHETIC;
+        Appointment appointment = new Appointment();
+        appointment.setDog(dog);
+        appointment.setSalon(salon);
+        appointment.setDateTime(dateTime);
+        appointment.setTreatmentType(treatmentType);
+        appointmentTableModel.add(appointment);
+    }//GEN-LAST:event_btnAddAppointmentActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brtViewAll;
+    private javax.swing.JButton btnAddAppointment;
+    private javax.swing.JButton btnRemoveAppointment;
     private javax.swing.JComboBox<String> cmbSalonFilter;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -234,11 +264,12 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTable tblAppointments;
     // End of variables declaration//GEN-END:variables
 
-    private void populateForm() {
+    private void populateTable() {
         try {
             List<Appointment> appointments = new DatabaseRepository().getAppointments();
             tblAppointments.setModel(new AppointmentTableModel(appointments));
             tblAppointments.setAutoCreateRowSorter(true);
+            tblAppointments.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
             fillComboDog();
             fillComboSalon();
@@ -248,7 +279,7 @@ public class MainForm extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     private void populateForm(Salon salonFilter) {
         try {
             List<Appointment> appointments = new DatabaseRepository().getAppointments(salonFilter);
@@ -263,8 +294,6 @@ public class MainForm extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-    
-    
 
     private void populateComboSalonFilter() {
         cmbSalonFilter.setModel(new DefaultComboBoxModel(new DatabaseRepository().getSalons().toArray()));
@@ -278,7 +307,7 @@ public class MainForm extends javax.swing.JFrame {
         JComboBox comboDog = new JComboBox(new DefaultComboBoxModel(new DatabaseRepository().getDogs().toArray()));
         columnDog.setCellEditor(new DefaultCellEditor(comboDog));
         comboDog.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
-        
+
     }
 
     private void fillComboSalon() {
