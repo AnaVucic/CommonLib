@@ -52,6 +52,7 @@ public class MainForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        brtViewAll = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -68,6 +69,11 @@ public class MainForm extends javax.swing.JFrame {
         jLabel1.setText("Future appointments");
 
         cmbSalonFilter.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        cmbSalonFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSalonFilterActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel2.setText("Choose a salon:");
@@ -89,9 +95,24 @@ public class MainForm extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jButton2.setText("Remove appointment");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jButton3.setText("Edit appointment");
+        jButton3.setMaximumSize(new java.awt.Dimension(164, 27));
+        jButton3.setMinimumSize(new java.awt.Dimension(164, 27));
+
+        brtViewAll.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        brtViewAll.setText("View All");
+        brtViewAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brtViewAllActionPerformed(evt);
+            }
+        });
 
         jMenuBar1.setBorder(null);
 
@@ -113,7 +134,7 @@ public class MainForm extends javax.swing.JFrame {
         jMenu4.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jMenuBar1.add(jMenu4);
 
-        jMenu3.setText("Price Rates Iformation");
+        jMenu3.setText("Price Rates Information");
         jMenu3.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jMenuBar1.add(jMenu3);
 
@@ -126,47 +147,77 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(98, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1071, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbSalonFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(577, 577, 577)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1071, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbSalonFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(brtViewAll)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(723, 723, 723)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addGap(97, 97, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(jLabel1)
-                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jLabel1)
+                        .addGap(36, 36, 36))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)))
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(cmbSalonFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbSalonFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(brtViewAll))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
                         .addComponent(jButton2)
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton1)))
-                .addGap(37, 37, 37)
+                        .addGap(47, 47, 47)))
+                .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cmbSalonFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSalonFilterActionPerformed
+        Salon selectedSalon = (Salon) cmbSalonFilter.getSelectedItem();
+        populateForm(selectedSalon);
+    }//GEN-LAST:event_cmbSalonFilterActionPerformed
+
+    private void brtViewAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brtViewAllActionPerformed
+        Salon selectedSalon = (Salon) cmbSalonFilter.getSelectedItem();
+        if(selectedSalon == null) return;
+        populateForm();
+    }//GEN-LAST:event_brtViewAllActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        AppointmentTableModel appointmentTableModel = (AppointmentTableModel) tblAppointments.getModel();
+        //Appointment selectedAppointment = tblAppointments.getSelectionModel();
+        //appointmentTableModel.remove(selectedAppointment);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton brtViewAll;
     private javax.swing.JComboBox<String> cmbSalonFilter;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -197,9 +248,27 @@ public class MainForm extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
+    
+    private void populateForm(Salon salonFilter) {
+        try {
+            List<Appointment> appointments = new DatabaseRepository().getAppointments(salonFilter);
+            tblAppointments.setModel(new AppointmentTableModel(appointments));
+            tblAppointments.setAutoCreateRowSorter(true);
+
+            fillComboDog();
+            fillComboSalon();
+            fillComboTreatmentType();
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    
 
     private void populateComboSalonFilter() {
         cmbSalonFilter.setModel(new DefaultComboBoxModel(new DatabaseRepository().getSalons().toArray()));
+        cmbSalonFilter.setSelectedItem(null);
     }
 
     private void fillComboDog() {

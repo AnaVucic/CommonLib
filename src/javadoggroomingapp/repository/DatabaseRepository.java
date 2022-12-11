@@ -247,6 +247,36 @@ public class DatabaseRepository {
             return null;
         }
     }
+    
+    public List<Appointment> getAppointments(Salon salonFilter) {
+        try {
+            Connection conn = DBConnectionFactory.getInstance().getConnection();
+            List<Appointment> appointments = new ArrayList<>();
+
+            String query = "SELECT a.id, a.date_time, a.dog_id, a.salon_id, a.fee, a.duration, a.treatment_type, s.id, s.address, d.name, d.breed, p.id, p.firstname, p.lastname, p.contact_number,p.appointment_number, c.zip_code, c.name, pref.discount FROM appointment a JOIN salon s ON a.salon_id=s.id JOIN dog d ON a.dog_id=d.id JOIN person p ON d.person_id=p.id JOIN city c ON c.zip_code=s.city_zip_code LEFT JOIN preferential pref ON p.id=pref.person_id where a.salon_id=" + salonFilter.getSalonID();
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                Long id = resultSet.getLong("a.id");
+                Timestamp sqlTimestamp = resultSet.getTimestamp("a.date_time");
+                LocalDateTime dateTime = sqlTimestamp.toLocalDateTime();
+                Person person = new Person(resultSet.getLong("p.id"), resultSet.getString("p.firstname"), resultSet.getString("p.lastname"), resultSet.getString("p.contact_number"), resultSet.getInt("p.appointment_number"));
+                Dog dog = new Dog(resultSet.getLong("a.dog_id"), person, resultSet.getString("d.name"), resultSet.getString("d.breed"));
+                City city = new City(resultSet.getString("c.zip_code"), resultSet.getString("c.name"));
+                Salon salon = new Salon(resultSet.getLong("s.id"), resultSet.getString("s.address"), city);
+                double fee = resultSet.getDouble("a.fee");
+                int duration = resultSet.getInt("a.duration");
+                TreatmentType treatmentType = TreatmentType.valueOf(resultSet.getString("a.treatment_type").toUpperCase());
+
+                appointments.add(new Appointment(id, dateTime, dog, salon, fee, duration, treatmentType));
+            }
+            return appointments;
+        } catch (SQLException ex) {
+            System.out.println("Desila se greska: " + ex.getMessage());
+            return null;
+        }
+    }
 
     public void removeAppointment(Long id) {
         try {

@@ -38,7 +38,7 @@ public class AppointmentTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Appointment appointment = appointments.get(rowIndex);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm");
 
         switch (columnIndex) {
             case 0:
@@ -89,7 +89,7 @@ public class AppointmentTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true;
+        return false;
     }
 
     public List<Appointment> getPersons() {
@@ -103,6 +103,11 @@ public class AppointmentTableModel extends AbstractTableModel {
 
     public void remove(int index) {
         appointments.remove(index);
+        fireTableDataChanged();
+    }
+    
+     public void remove(Appointment appointment) {
+        appointments.remove(appointment);
         fireTableDataChanged();
     }
 
