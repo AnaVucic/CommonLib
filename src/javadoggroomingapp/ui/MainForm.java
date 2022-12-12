@@ -24,11 +24,7 @@ import javax.swing.table.TableColumnModel;
  */
 public class MainForm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainForm
-     *
-     * @param currentUser
-     */
+    
     public MainForm(User currentUser) {
 
         for (Salon s : new DatabaseRepository().getSalons()) {
@@ -62,6 +58,7 @@ public class MainForm extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
@@ -70,20 +67,20 @@ public class MainForm extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(850, 700));
         setPreferredSize(new java.awt.Dimension(1920, 1080));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Light", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Future appointments");
 
-        cmbSalonFilter.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        cmbSalonFilter.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbSalonFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbSalonFilterActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Choose a salon:");
 
-        tblAppointments.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        tblAppointments.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tblAppointments.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -95,7 +92,7 @@ public class MainForm extends javax.swing.JFrame {
         tblAppointments.setRowHeight(30);
         jScrollPane1.setViewportView(tblAppointments);
 
-        btnAddAppointment.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        btnAddAppointment.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAddAppointment.setText("Add new appointment");
         btnAddAppointment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,7 +100,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        btnRemoveAppointment.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        btnRemoveAppointment.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnRemoveAppointment.setText("Cancel appointment");
         btnRemoveAppointment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,12 +108,11 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton3.setText("Edit appointment");
         jButton3.setMaximumSize(new java.awt.Dimension(164, 27));
         jButton3.setMinimumSize(new java.awt.Dimension(164, 27));
 
-        brtViewAll.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         brtViewAll.setText("View All");
         brtViewAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,27 +121,32 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         jMenuBar1.setBorder(null);
+        jMenuBar1.setAlignmentX(1.0F);
 
         jMenu1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jMenu1.setText("Persons");
-        jMenu1.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jMenuItem1.setText("View all persons");
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Dogs");
-        jMenu2.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+
+        jMenuItem2.setText(" Edit dogs");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
         jMenuBar1.add(jMenu2);
 
         jMenu4.setText("Salons");
-        jMenu4.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jMenuBar1.add(jMenu4);
 
         jMenu3.setText("Price Rates Information");
-        jMenu3.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -154,55 +155,45 @@ public class MainForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(98, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1071, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAddAppointment))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbSalonFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(brtViewAll)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(723, 723, 723)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnRemoveAppointment, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addGap(97, 97, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cmbSalonFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(brtViewAll))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(899, 899, 899)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnRemoveAppointment, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAddAppointment, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jLabel1)
-                        .addGap(36, 36, 36))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnAddAppointment)
-                        .addGap(18, 18, 18)))
+                .addGap(31, 31, 31)
+                .addComponent(jLabel1)
+                .addGap(92, 92, 92)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cmbSalonFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(brtViewAll))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAddAppointment)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(cmbSalonFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(brtViewAll))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnRemoveAppointment)
-                        .addGap(47, 47, 47)))
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRemoveAppointment)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -222,6 +213,10 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_brtViewAllActionPerformed
 
     private void btnRemoveAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAppointmentActionPerformed
+        if(tblAppointments.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(this, "First select an appointment!");
+            return;
+        }
         if (JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel this appointment?") == 0) {
             AppointmentTableModel appointmentTableModel = (AppointmentTableModel) tblAppointments.getModel();
             int selectedAppointment = tblAppointments.getRowSorter().convertRowIndexToModel(tblAppointments.getSelectedRow());
@@ -245,6 +240,13 @@ public class MainForm extends javax.swing.JFrame {
         appointmentTableModel.add(appointment);
     }//GEN-LAST:event_btnAddAppointmentActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        DogForm dogForm = new DogForm();
+        dogForm.setVisible(true);
+        dogForm.setLocationRelativeTo(this);
+        dogForm.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brtViewAll;
@@ -260,6 +262,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAppointments;
     // End of variables declaration//GEN-END:variables

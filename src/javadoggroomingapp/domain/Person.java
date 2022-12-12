@@ -100,7 +100,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" + "personID=" + personID + ", firstname=" + firstname + ", lastname=" + lastname + ", contactNumber=" + contactNumber + ", appointment_number=" + appointment_number + '}';
+        return firstname + " " + lastname;
     }
 
     

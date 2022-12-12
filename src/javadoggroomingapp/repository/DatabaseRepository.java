@@ -55,21 +55,20 @@ public class DatabaseRepository {
     public List<Person> getPersons() {
         try {
             List<Person> persons = new ArrayList<>();
-
             Connection conn = DBConnectionFactory.getInstance().getConnection();
-            System.out.println("Connection: OK!");
 
-            String query = "SELECT * FROM person order by firstname";
+            String query = "SELECT * FROM person";
             Statement s = conn.createStatement();
             ResultSet rs = s.executeQuery(query);
 
             while (rs.next()) {
-                Long id = rs.getLong("personid");
+                Long id = rs.getLong("id");
                 String firstname = rs.getString("firstname");
                 String lastname = rs.getString("lastname");
-                String contactNumber = rs.getString("contactnumber");
+                String contactNumber = rs.getString("contact_number");
+                int appointment_number = rs.getInt("appointment_number");
 
-                //persons.add(new Person(id, firstname, lastname, contactNumber));
+                persons.add(new Person(id, firstname, lastname, contactNumber, appointment_number));
             }
 
             s.close();
