@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javadoggroomingapp.ui;
+package commonlib.ui;
 
 import java.util.List;
-import javadoggroomingapp.domain.User;
-import javadoggroomingapp.repository.DatabaseRepository;
+import commonlib.domain.User;
+import commonlib.repository.DatabaseRepository;
 import javax.swing.JOptionPane;
 
 /**

@@ -1,14 +1,15 @@
 
-package javadoggroomingapp.ui;
+package commonlib.ui;
 
 import java.util.List;
-import javadoggroomingapp.domain.Dog;
-import javadoggroomingapp.domain.Person;
-import javadoggroomingapp.repository.DatabaseRepository;
-import javadoggroomingapp.ui.components.table.model.DogTableModel;
+import commonlib.domain.Dog;
+import commonlib.domain.Person;
+import commonlib.repository.DatabaseRepository;
+import commonlib.ui.components.table.model.DogTableModel;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -56,6 +57,11 @@ public class DogForm extends javax.swing.JFrame {
         });
 
         btnRemove.setText("Remove");
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveActionPerformed(evt);
+            }
+        });
 
         tblDogs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -136,6 +142,18 @@ public class DogForm extends javax.swing.JFrame {
         dtm.add(addDog);
         
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        if(tblDogs.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(this, "First select an appointment!");
+            return;
+        }
+        if (JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel this appointment?") == 0) {
+            int selectedDog = tblDogs.getRowSorter().convertRowIndexToModel(tblDogs.getSelectedRow());
+            DogTableModel dtm = (DogTableModel) tblDogs.getModel();
+            dtm.remove(selectedDog);
+        }
+    }//GEN-LAST:event_btnRemoveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

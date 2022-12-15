@@ -1,4 +1,4 @@
-package javadoggroomingapp.domain;
+package commonlib.domain;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

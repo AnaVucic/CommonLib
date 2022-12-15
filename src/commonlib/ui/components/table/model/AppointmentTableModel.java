@@ -1,11 +1,11 @@
-package javadoggroomingapp.ui.components.table.model;
+package commonlib.ui.components.table.model;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import javadoggroomingapp.domain.Appointment;
-import javadoggroomingapp.domain.Dog;
-import javadoggroomingapp.domain.Salon;
-import javadoggroomingapp.domain.TreatmentType;
+import commonlib.domain.Appointment;
+import commonlib.domain.Dog;
+import commonlib.domain.Salon;
+import commonlib.domain.TreatmentType;
 import javax.swing.table.AbstractTableModel;
 import org.apache.commons.lang3.StringUtils;
 

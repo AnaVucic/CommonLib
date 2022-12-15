@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package javadoggroomingapp;
+package commonlib;
 
-import javadoggroomingapp.ui.LoginForm;
+import commonlib.ui.LoginForm;
 
 /**
  *

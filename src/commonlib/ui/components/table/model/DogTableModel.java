@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package javadoggroomingapp.ui.components.table.model;
+package commonlib.ui.components.table.model;
 
 import java.util.List;
-import javadoggroomingapp.domain.Dog;
-import javadoggroomingapp.domain.Person;
+import commonlib.domain.Dog;
+import commonlib.domain.Person;
 import javax.swing.table.AbstractTableModel;
 
 /**

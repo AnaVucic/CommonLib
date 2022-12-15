@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package javadoggroomingapp.repository;
+package commonlib.repository;
 
-import javadoggroomingapp.domain.Person;
-import javadoggroomingapp.domain.City;
-import javadoggroomingapp.domain.Dog;
-import javadoggroomingapp.domain.Appointment;
-import javadoggroomingapp.domain.Salon;
+import commonlib.domain.Person;
+import commonlib.domain.City;
+import commonlib.domain.Dog;
+import commonlib.domain.Appointment;
+import commonlib.domain.Salon;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,8 +20,9 @@ import java.util.logging.Logger;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import javadoggroomingapp.domain.TreatmentType;
-import javadoggroomingapp.domain.User;
+import commonlib.domain.TreatmentType;
+import commonlib.domain.User;
+import javax.swing.SpringLayout;
 
 /**
  *
@@ -343,6 +344,30 @@ public class DatabaseRepository {
             return null;
         }
     }
+    
+    public List<Dog> getDogsByPerson(Person person) {
+        try {
+            Connection conn = DBConnectionFactory.getInstance().getConnection();
+            List<Dog> dogs = new ArrayList<>();
+
+            String query = "SELECT id, name, breed FROM dog where person_id=" +person.getPersonID();
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                Long id = resultSet.getLong("id");
+                String breed = resultSet.getString("breed");
+                String name = resultSet.getString("name");
+
+                dogs.add(new Dog(id, person, name, breed));
+            }
+            System.out.println("javadoggroomingapp.repository.DatabaseRepository.getDogsByPerson()");
+            return dogs;
+        } catch (SQLException ex) {
+            System.out.println("Desila se greska: " + ex.getMessage());
+            return null;
+        }
+            }
 
     //------------------//
     //      SALONS      //
@@ -370,5 +395,7 @@ public class DatabaseRepository {
             return null;
         }
     }
+
+    
 
 }
