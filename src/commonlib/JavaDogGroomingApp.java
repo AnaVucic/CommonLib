@@ -4,7 +4,6 @@
  */
 package commonlib;
 
-import commonlib.ui.LoginForm;
 
 /**
  *
@@ -17,10 +16,6 @@ public class JavaDogGroomingApp {
      */
     
     public static void main(String[] args) {
-        
-      LoginForm lf = new LoginForm();
-      lf.setVisible(true);
-      lf.setLocationRelativeTo(null);
         
         
     }

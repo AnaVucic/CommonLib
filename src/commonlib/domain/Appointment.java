@@ -1,6 +1,8 @@
 package commonlib.domain;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -9,35 +11,33 @@ import java.util.Objects;
  */
 public class Appointment {
     
-    private Long appointmentId;
+    private Long appointmentID;
     private LocalDateTime dateTime;
     private Dog dog;
     private Salon salon;
-    private double fee;
-    private int duration;
-    private TreatmentType treatmentType;
+    private BigDecimal totalFee;
+    private BigDecimal totalDuration;
+    private List<Service> appointmentsTreatmentTypes;
 
     public Appointment() {
     }
 
-    public Appointment(Long appointmentId, LocalDateTime dateTime, Dog dog, Salon salon, double fee, int duration, TreatmentType treatmentType) {
-        this.appointmentId = appointmentId;
+    public Appointment(Long appointmentID, LocalDateTime dateTime, Dog dog, Salon salon, BigDecimal totalFee, BigDecimal totalDuration, List<Service> appointmentsTreatmentTypes) {
+        this.appointmentID = appointmentID;
         this.dateTime = dateTime;
         this.dog = dog;
         this.salon = salon;
-        this.fee = fee;
-        this.duration = duration;
-        this.treatmentType = treatmentType;
+        this.totalFee = totalFee;
+        this.totalDuration = totalDuration;
+        this.appointmentsTreatmentTypes = appointmentsTreatmentTypes;
     }
 
-    
-
-    public Long getAppointmentId() {
-        return appointmentId;
+    public Long getAppointmentID() {
+        return appointmentID;
     }
 
-    public void setAppointmentId(Long appointmentId) {
-        this.appointmentId = appointmentId;
+    public void setAppointmentID(Long appointmentID) {
+        this.appointmentID = appointmentID;
     }
 
     public LocalDateTime getDateTime() {
@@ -64,46 +64,42 @@ public class Appointment {
         this.salon = salon;
     }
 
-    public double getFee() {
-        return fee;
+    public BigDecimal getTotalFee() {
+        return totalFee;
     }
 
-    public void setFee(double fee) {
-        this.fee = fee;
+    public void setTotalFee(BigDecimal totalFee) {
+        this.totalFee = totalFee;
     }
 
-    public int getDuration() {
-        return duration;
+    public BigDecimal getTotalDuration() {
+        return totalDuration;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public void setTotalDuration(BigDecimal totalDuration) {
+        this.totalDuration = totalDuration;
     }
 
-    public TreatmentType getTreatmentType() {
-        return treatmentType;
+    public List<Service> getAppointmentsTreatmentTypes() {
+        return appointmentsTreatmentTypes;
     }
 
-    public void setTreatmentType(TreatmentType treatmentType) {
-        this.treatmentType = treatmentType;
+    public void setAppointmentsTreatmentTypes(List<Service> appointmentsTreatmentTypes) {
+        this.appointmentsTreatmentTypes = appointmentsTreatmentTypes;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 53 * hash + Objects.hashCode(this.appointmentId);
-        hash = 53 * hash + Objects.hashCode(this.dateTime);
-        hash = 53 * hash + Objects.hashCode(this.dog);
-        hash = 53 * hash + Objects.hashCode(this.salon);
-        hash = 53 * hash + (int) (Double.doubleToLongBits(this.fee) ^ (Double.doubleToLongBits(this.fee) >>> 32));
-        hash = 53 * hash + this.duration;
-        hash = 53 * hash + Objects.hashCode(this.treatmentType);
+        hash = 23 * hash + Objects.hashCode(this.appointmentID);
+        hash = 23 * hash + Objects.hashCode(this.dateTime);
+        hash = 23 * hash + Objects.hashCode(this.dog);
+        hash = 23 * hash + Objects.hashCode(this.salon);
+        hash = 23 * hash + Objects.hashCode(this.totalFee);
+        hash = 23 * hash + Objects.hashCode(this.totalDuration);
+        hash = 23 * hash + Objects.hashCode(this.appointmentsTreatmentTypes);
         return hash;
     }
-    
-    
-
-    
 
     @Override
     public boolean equals(Object obj) {
@@ -117,21 +113,14 @@ public class Appointment {
             return false;
         }
         final Appointment other = (Appointment) obj;
-        return Objects.equals(this.appointmentId, other.appointmentId);
+        return Objects.equals(this.appointmentID, other.appointmentID);
     }
 
     @Override
     public String toString() {
-        return "Appointment{" + "appointmentId=" + appointmentId + ", dateTime=" + dateTime + ", dog=" + dog + ", salon=" + salon + ", fee=" + fee + ", duration=" + duration + ", treatmentType=" + treatmentType + '}';
+        return "Appointment{" + "appointmentID=" + appointmentID + ", dateTime=" + dateTime + ", dog=" + dog + ", salon=" + salon + ", totalFee=" + totalFee + ", totalDuration=" + totalDuration + ", appointmentsTreatmentTypes=" + appointmentsTreatmentTypes + '}';
     }
-
-    
-    
-    
     
     
 
-    
-    
-    
 }

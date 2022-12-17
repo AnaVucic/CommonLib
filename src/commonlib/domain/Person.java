@@ -4,6 +4,7 @@
  */
 package commonlib.domain;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -15,18 +16,18 @@ public class Person {
     private String firstname;
     private String lastname;
     private String contactNumber;
-    private int appointment_number;
+    private int appointmentNumber;
     
     public Person(){
         
     }
 
-    public Person(Long personID, String firstname, String lastname, String contactNumber, int appointment_number) {
+    public Person(Long personID, String firstname, String lastname, String contactNumber, int appointmentNumber) {
         this.personID = personID;
         this.firstname = firstname;
         this.lastname = lastname;
         this.contactNumber = contactNumber;
-        this.appointment_number = appointment_number;
+        this.appointmentNumber = appointmentNumber;
     }
 
     public Long getPersonID() {
@@ -62,11 +63,11 @@ public class Person {
     }
 
     public int getAppointment_number() {
-        return appointment_number;
+        return appointmentNumber;
     }
 
-    public void setAppointment_number(int appointment_number) {
-        this.appointment_number = appointment_number;
+    public void setAppointment_number(int appointmentNumber) {
+        this.appointmentNumber = appointmentNumber;
     }
 
     @Override
@@ -76,7 +77,7 @@ public class Person {
         hash = 59 * hash + Objects.hashCode(this.firstname);
         hash = 59 * hash + Objects.hashCode(this.lastname);
         hash = 59 * hash + Objects.hashCode(this.contactNumber);
-        hash = 59 * hash + this.appointment_number;
+        hash = 59 * hash + this.appointmentNumber;
         return hash;
     }
     

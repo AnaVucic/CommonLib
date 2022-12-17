@@ -14,14 +14,15 @@ public class Dog {
     
     private Long dogID;
     private Person person;
+    private Breed breed;
     private String name;
-    private String breed;
+    
     
     public Dog(){
         
     }
 
-    public Dog(Long dogID, Person person, String name, String breed) {
+    public Dog(Long dogID, Person person, String name, Breed breed) {
         this.dogID = dogID;
         this.person = person;
         this.name = name;
@@ -54,11 +55,11 @@ public class Dog {
         this.name = name;
     }
 
-    public String getBreed() {
+    public Breed getBreed() {
         return breed;
     }
 
-    public void setBreed(String breed) {
+    public void setBreed(Breed breed) {
         this.breed = breed;
     }
 
