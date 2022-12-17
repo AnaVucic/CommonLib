@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author Lenovo
  */
-public class Request implements Serializable{
+public class Request implements Serializable {
     
     private Object argument;
     private Operation operation;
@@ -19,7 +19,7 @@ public class Request implements Serializable{
         
     }
 
-    public Request(Object param, Operation operation, Long id) {
+    public Request(Operation operation, Object param) {
         this.argument = param;
         this.operation = operation;
     }
