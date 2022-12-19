@@ -36,5 +36,11 @@ public enum Operation implements Serializable{
     GET_ALL_PERSONS,
     FIND_PERSON,
     EDIT_PERSON,
-    DELETE_PERSON
+    DELETE_PERSON,
+    
+    SAVE_SERVICE,
+    GET_ALL_SERVICES,
+    FIND_SERVICE,
+    EDIT_SERVICE,
+    DELETE_SERVICE
 }

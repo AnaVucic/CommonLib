@@ -1,7 +1,13 @@
 package commonlib.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,27 +15,27 @@ import java.util.Objects;
  *
  * @author anavu
  */
-public class Appointment {
-    
+public class Appointment implements Serializable, GenericEntity {
+
     private Long appointmentID;
     private LocalDateTime dateTime;
     private Dog dog;
     private Salon salon;
     private BigDecimal totalFee;
-    private BigDecimal totalDuration;
-    private List<Service> appointmentsTreatmentTypes;
+    private int totalDuration;
+    private List<Service> services;
 
     public Appointment() {
     }
 
-    public Appointment(Long appointmentID, LocalDateTime dateTime, Dog dog, Salon salon, BigDecimal totalFee, BigDecimal totalDuration, List<Service> appointmentsTreatmentTypes) {
+    public Appointment(Long appointmentID, LocalDateTime dateTime, Dog dog, Salon salon, BigDecimal totalFee, int totalDuration, List<Service> appointmentsTreatmentTypes) {
         this.appointmentID = appointmentID;
         this.dateTime = dateTime;
         this.dog = dog;
         this.salon = salon;
         this.totalFee = totalFee;
         this.totalDuration = totalDuration;
-        this.appointmentsTreatmentTypes = appointmentsTreatmentTypes;
+        this.services = appointmentsTreatmentTypes;
     }
 
     public Long getAppointmentID() {
@@ -72,20 +78,20 @@ public class Appointment {
         this.totalFee = totalFee;
     }
 
-    public BigDecimal getTotalDuration() {
+    public int getTotalDuration() {
         return totalDuration;
     }
 
-    public void setTotalDuration(BigDecimal totalDuration) {
+    public void setTotalDuration(int totalDuration) {
         this.totalDuration = totalDuration;
     }
 
-    public List<Service> getAppointmentsTreatmentTypes() {
-        return appointmentsTreatmentTypes;
+    public List<Service> getServices() {
+        return services;
     }
 
-    public void setAppointmentsTreatmentTypes(List<Service> appointmentsTreatmentTypes) {
-        this.appointmentsTreatmentTypes = appointmentsTreatmentTypes;
+    public void setServices(List<Service> services) {
+        this.services = services;
     }
 
     @Override
@@ -97,7 +103,7 @@ public class Appointment {
         hash = 23 * hash + Objects.hashCode(this.salon);
         hash = 23 * hash + Objects.hashCode(this.totalFee);
         hash = 23 * hash + Objects.hashCode(this.totalDuration);
-        hash = 23 * hash + Objects.hashCode(this.appointmentsTreatmentTypes);
+        hash = 23 * hash + Objects.hashCode(this.services);
         return hash;
     }
 
@@ -118,9 +124,105 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Appointment{" + "appointmentID=" + appointmentID + ", dateTime=" + dateTime + ", dog=" + dog + ", salon=" + salon + ", totalFee=" + totalFee + ", totalDuration=" + totalDuration + ", appointmentsTreatmentTypes=" + appointmentsTreatmentTypes + '}';
+        return "Appointment{" + "appointmentID=" + appointmentID + ", dateTime=" + dateTime
+                + ", dog=" + dog + ", salon=" + salon + ", totalFee=" + totalFee
+                + ", totalDuration=" + totalDuration + ", appointmentsTreatmentTypes=" + services + '}';
     }
-    
-    
+
+    @Override
+    public String getTableName() {
+        return "appointments";
+    }
+
+    @Override
+    public String getColumnNamesForInsert() {
+        return "date_time, dog_id, salon_id, total_fee, total_duration, ";
+
+    }
+
+    @Override
+    public String getInsertValues() {
+        return "'" + java.sql.Timestamp.valueOf(dateTime) + "', '"
+                + dog.getDogID() + "', '" + salon.getSalonID() + "', '"
+                + totalFee + "', '" + totalDuration + "'";
+    }
+
+    // UNSUPPORTED
+    @Override
+    public String getInsertValuesUnprepared() {
+        return null;
+    }
+
+    // UNSUPPORTED
+    @Override
+    public void prepareStatement(PreparedStatement statement) throws SQLException {
+
+    }
+
+    @Override
+    public void setID(Long id) {
+        this.appointmentID = id;
+    }
+
+    @Override
+    public String getSelectCondition() {
+        return "id=" + appointmentID;
+
+    }
+
+    @Override
+    public String getDeleteCondition() {
+        return "id=" + appointmentID;
+
+    }
+
+    // nije mi jasno zasto je ovo napravljeno xd
+    @Override
+    public String getDeleteConditionForItem() {
+        return "id=" + appointmentID;
+    }
+
+    @Override
+    public String getUpdateCondition() {
+        return "id=" + appointmentID;
+    }
+
+    @Override
+    public String setAttributes() {
+        return "date_time='" + java.sql.Timestamp.valueOf(dateTime)  + 
+                "', dog_id='" + dog.getDogID() + 
+                "', salon_id='" + salon.getSalonID() +
+                "', total_fee='" + totalFee +
+                "', total_duration='" + totalDuration + "'";
+    }
+
+    @Override
+    public List<GenericEntity> getList(ResultSet rs) throws Exception {
+        List<GenericEntity> list = new ArrayList<>();
+        while (rs.next()) {
+            Appointment a = new Appointment();
+            a.setAppointmentID(rs.getLong("id"));
+            a.setDateTime(rs.getTimestamp("date_time").toLocalDateTime());
+            a.setTotalFee(BigDecimal.valueOf(rs.getDouble("total_fee")));
+            a.setTotalDuration(rs.getInt("total_duration"));
+            
+            Dog d = new Dog();
+            d.setDogID(rs.getLong("dog_id"));
+            a.setDog(dog);
+            
+            Salon s = new Salon();
+            s.setSalonID(rs.getLong("salon_id"));
+            a.setSalon(salon);
+
+            list.add(a);
+        }
+        return list;
+    }
+
+    // UNSUPPORTED
+    @Override
+    public String getSpecificSelectCondition() {
+        return "";
+    }
 
 }

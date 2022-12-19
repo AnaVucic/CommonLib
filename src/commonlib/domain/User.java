@@ -4,14 +4,20 @@
  */
 package commonlib.domain;
 
+import java.io.Serializable;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  *
  * @author Lenovo
  */
-public class User {
-    
+public class User implements Serializable, GenericEntity {
+
     private Long id;
     private String username;
     private String password;
@@ -19,7 +25,6 @@ public class User {
     public User() {
     }
 
-    
     public User(Long id, String username, String password) {
         this.id = id;
         this.username = username;
@@ -78,7 +83,86 @@ public class User {
     public String toString() {
         return "User{" + "id=" + id + ", username=" + username + ", password=" + password + '}';
     }
-    
-    
-    
+
+    @Override
+    public String getTableName() {
+        return "user";
+    }
+
+    @Override
+    public String getColumnNamesForInsert() {
+        return "username, password";
+
+    }
+
+    @Override
+    public String getInsertValues() {
+        return "'" + username + "', '" + password + "' ";
+    }
+
+    // UNSUPPORTED
+    @Override
+    public String getInsertValuesUnprepared() {
+        return null;
+    }
+
+    // UNSUPPORTED
+    @Override
+    public void prepareStatement(PreparedStatement statement) throws SQLException {
+
+    }
+
+    @Override
+    public void setID(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getSelectCondition() {
+        if (username != null) {
+            return "username='" + username + "' AND password='" + password + "'";
+        } else {
+            return "id=" + id;
+        }
+    }
+
+    @Override
+    public String getDeleteCondition() {
+        return "id+" + id;
+    }
+
+    @Override
+    public String getDeleteConditionForItem() {
+        return null;
+    }
+
+    @Override
+    public String getUpdateCondition() {
+        return "id+" + id;
+    }
+
+    @Override
+    public String setAttributes() {
+        return "username='" + username + "', password='" + password + "' ";
+    }
+
+    @Override
+    public List<GenericEntity> getList(ResultSet rs) throws Exception {
+        List<GenericEntity> list = new ArrayList<>();
+        while (rs.next()) {
+            User user = new User();
+            user.setId(rs.getLong("id"));
+            user.setUsername(rs.getString("username"));
+            user.setPassword(rs.getString("password"));
+
+            list.add(user);
+        }
+        return list;
+    }
+
+    @Override
+    public String getSpecificSelectCondition() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
