@@ -128,7 +128,7 @@ public class User implements Serializable, GenericEntity {
 
     @Override
     public String getDeleteCondition() {
-        return "id+" + id;
+        return "id=" + id;
     }
 
     @Override
@@ -138,7 +138,7 @@ public class User implements Serializable, GenericEntity {
 
     @Override
     public String getUpdateCondition() {
-        return "id+" + id;
+        return "id=" + id;
     }
 
     @Override
