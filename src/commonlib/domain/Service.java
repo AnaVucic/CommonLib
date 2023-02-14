@@ -1,18 +1,25 @@
 package commonlib.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  *
  * @author Lenovo
  */
-public class Service {
+public class Service implements Serializable, GenericEntity {
 
     private Long serviceID;
     private String name;
     private BigDecimal fee;
     private int duration;
+    //private List<Appointment> appointments; //all appointments containing a specific service
 
     public Service() {
 
@@ -85,6 +92,81 @@ public class Service {
     @Override
     public String toString() {
         return "Service{" + "serviceID=" + serviceID + ", name=" + name + ", fee=" + fee + ", duration=" + duration + '}';
+    }
+
+    @Override
+    public String getTableName() {
+        return "service";
+    }
+
+    @Override
+    public String getColumnNamesForInsert() {
+        return "name, fee, duration";
+    }
+
+    @Override
+    public String getInsertValues() {
+        return "'" + name + "', " + fee + ", " + duration;
+    }
+
+    // UNSUPPORTED
+    @Override
+    public String getInsertValuesUnprepared() {
+        return null;
+    }
+
+    // UNSUPPORTED
+    @Override
+    public void prepareStatement(PreparedStatement statement) throws SQLException {
+    }
+
+    @Override
+    public void setID(Long id) {
+        this.serviceID = id;
+    }
+
+    @Override
+    public String getSelectCondition() {
+        return "id=" + serviceID;
+    }
+
+    @Override
+    public String getDeleteCondition() {
+        return "id=" + serviceID;
+    }
+
+    @Override
+    public String getDeleteConditionForItem() {
+        return "id=" + serviceID;
+    }
+
+    @Override
+    public String getUpdateCondition() {
+        return "id=" + serviceID;
+    }
+
+    @Override
+    public String setAttributes() {
+        return "name='" + name + ", fee=" + fee + ", duration=" + duration;
+    }
+
+    @Override
+    public List<GenericEntity> getList(ResultSet rs) throws Exception {
+        List<GenericEntity> list = new ArrayList<>();
+        while (rs.next()) {
+            Service s = new Service();
+            s.setName(rs.getString("name"));
+            s.setFee(rs.getBigDecimal("fee"));
+            s.setDuration(rs.getInt("duration"));
+            list.add(s);
+        }
+        return list;
+    }
+
+    // UNSUPPORTED
+    @Override
+    public String getSpecificSelectCondition() {
+        return "";
     }
 
 }

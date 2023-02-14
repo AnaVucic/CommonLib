@@ -16,51 +16,40 @@ import java.util.Objects;
  *
  * @author Lenovo
  */
-public class Salon implements Serializable, GenericEntity {
+public class AppointmentService implements Serializable, GenericEntity {
 
-    private Long salonID;
-    private String address;
-    private City city;
+    private Long appointment;
+    private Long service;
 
-    public Salon() {
+    public AppointmentService() {
     }
 
-    public Salon(Long salonID, String address, City city) {
-        this.salonID = salonID;
-        this.address = address;
-        this.city = city;
+    public AppointmentService(Long appointment, Long service) {
+        this.appointment = appointment;
+        this.service = service;
     }
 
-    public Long getSalonID() {
-        return salonID;
+    public Long getAppointment() {
+        return appointment;
     }
 
-    public void setSalonID(Long salonID) {
-        this.salonID = salonID;
+    public void setAppointment(Long appointment) {
+        this.appointment = appointment;
     }
 
-    public String getAddress() {
-        return address;
+    public Long getService() {
+        return service;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
+    public void setService(Long service) {
+        this.service = service;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 79 * hash + Objects.hashCode(this.salonID);
-        hash = 79 * hash + Objects.hashCode(this.address);
-        hash = 79 * hash + Objects.hashCode(this.city);
+        hash = 23 * hash + Objects.hashCode(this.appointment);
+        hash = 23 * hash + Objects.hashCode(this.service);
         return hash;
     }
 
@@ -75,28 +64,26 @@ public class Salon implements Serializable, GenericEntity {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Salon other = (Salon) obj;
-        return Objects.equals(this.salonID, other.salonID);
-    }
-
-    @Override
-    public String toString() {
-        return address + ", " + city.getName();
+        final AppointmentService other = (AppointmentService) obj;
+        if (!Objects.equals(this.appointment, other.appointment)) {
+            return false;
+        }
+        return Objects.equals(this.service, other.service);
     }
 
     @Override
     public String getTableName() {
-        return "salon";
+        return "appointment_service";
     }
 
     @Override
     public String getColumnNamesForInsert() {
-        return "address, city_zip_code";
+        return "appointment_id, service_id";
     }
 
     @Override
     public String getInsertValues() {
-        return "'" + address + "', '" + city.getZipCode() + "'";
+        return appointment + ", " + service;
     }
 
     // UNSUPPORTED
@@ -110,55 +97,48 @@ public class Salon implements Serializable, GenericEntity {
     public void prepareStatement(PreparedStatement statement) throws SQLException {
     }
 
+    // UNSUPPORTED - composite key, cannot take only one Long value, must take two.
     @Override
     public void setID(Long id) {
-        salonID = id;
     }
 
     @Override
     public String getSelectCondition() {
-        return "id=" + salonID;
+        return "appointment_id=" + appointment;
     }
 
     @Override
     public String getDeleteCondition() {
-        return "id=" + salonID;
+        return "appointment_id=" + appointment;
     }
 
     @Override
     public String getDeleteConditionForItem() {
-        return "id=" + salonID;
-
+        return "appointment_id=" + appointment;
     }
 
     @Override
     public String getUpdateCondition() {
-        return "id=" + salonID;
-
+        return "appointment_id=" + appointment;
     }
 
     @Override
     public String setAttributes() {
-        return "address='" + address + "', city_zip_code='" + city.getZipCode() + "'";
+        return "appointment_id=" + appointment + ", service_id=" + service;
     }
 
     @Override
     public List<GenericEntity> getList(ResultSet rs) throws Exception {
         List<GenericEntity> list = new ArrayList<>();
         while (rs.next()) {
-            Salon s = new Salon();
-            s.setSalonID(rs.getLong("id"));
-            s.setAddress(rs.getString("address"));
-            City city = new City(rs.getString("city_zip_code"), null);
-            s.setCity(city);
-            
-            System.out.println(city.toString() + "\n" + s.toString());
-
-            list.add(s);
+            AppointmentService as = new AppointmentService();
+            as.setAppointment(rs.getLong("appointment_id"));
+            as.setService(rs.getLong("service_id"));
+            list.add(as);
         }
         return list;
     }
-    
+
     // UNSUPPORTED
     @Override
     public String getSpecificSelectCondition() {

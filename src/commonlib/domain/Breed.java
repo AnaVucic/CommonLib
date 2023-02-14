@@ -1,12 +1,13 @@
 package commonlib.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Lenovo
  */
-public class Breed {
+public class Breed implements Serializable{
     
     private Long breedID;
     private String name;

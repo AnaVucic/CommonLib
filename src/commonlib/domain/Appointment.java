@@ -6,15 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- *
- * @author anavu
- */
 public class Appointment implements Serializable, GenericEntity {
 
     private Long appointmentID;
@@ -28,14 +23,14 @@ public class Appointment implements Serializable, GenericEntity {
     public Appointment() {
     }
 
-    public Appointment(Long appointmentID, LocalDateTime dateTime, Dog dog, Salon salon, BigDecimal totalFee, int totalDuration, List<Service> appointmentsTreatmentTypes) {
+    public Appointment(Long appointmentID, LocalDateTime dateTime, Dog dog, Salon salon, BigDecimal totalFee, int totalDuration, List<Service> services) {
         this.appointmentID = appointmentID;
         this.dateTime = dateTime;
         this.dog = dog;
         this.salon = salon;
         this.totalFee = totalFee;
         this.totalDuration = totalDuration;
-        this.services = appointmentsTreatmentTypes;
+        this.services = services;
     }
 
     public Long getAppointmentID() {
@@ -126,12 +121,12 @@ public class Appointment implements Serializable, GenericEntity {
     public String toString() {
         return "Appointment{" + "appointmentID=" + appointmentID + ", dateTime=" + dateTime
                 + ", dog=" + dog + ", salon=" + salon + ", totalFee=" + totalFee
-                + ", totalDuration=" + totalDuration + ", appointmentsTreatmentTypes=" + services + '}';
+                + ", totalDuration=" + totalDuration + ", services=" + services + '}';
     }
 
     @Override
     public String getTableName() {
-        return "appointments";
+        return "appointment";
     }
 
     @Override
@@ -169,7 +164,7 @@ public class Appointment implements Serializable, GenericEntity {
         return "id=" + appointmentID;
 
     }
-
+    
     @Override
     public String getDeleteCondition() {
         return "id=" + appointmentID;
@@ -208,11 +203,11 @@ public class Appointment implements Serializable, GenericEntity {
             
             Dog d = new Dog();
             d.setDogID(rs.getLong("dog_id"));
-            a.setDog(dog);
+            a.setDog(d);
             
             Salon s = new Salon();
             s.setSalonID(rs.getLong("salon_id"));
-            a.setSalon(salon);
+            a.setSalon(s);
 
             list.add(a);
         }

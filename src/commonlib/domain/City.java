@@ -1,16 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package commonlib.domain;
 
+import java.io.Serializable;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-/**
- *
- * @author Lenovo
- */
-public class City {
+public class City implements Serializable, GenericEntity{
     
     private String zipCode;
     private String name;
@@ -66,6 +64,80 @@ public class City {
     @Override
     public String toString() {
         return "City{" + "zipCode=" + zipCode + ", name=" + name + '}';
+    }
+
+    @Override
+    public String getTableName() {
+        return "city";
+    }
+
+    @Override
+    public String getColumnNamesForInsert() {
+        return "zip_code, name";
+    }
+
+    @Override
+    public String getInsertValues() {
+        return "'" + zipCode + "', '" + name + "'";
+    }
+
+    // UNSUPPORTED
+    @Override
+    public String getInsertValuesUnprepared() {
+        return null;
+    }
+
+    // UNSUPPORTED
+    @Override
+    public void prepareStatement(PreparedStatement statement) throws SQLException {
+        
+    }
+
+    @Override
+    public void setID(Long id) {
+        zipCode = String.valueOf(id);
+    }
+
+    @Override
+    public String getSelectCondition() {
+        return "zip_code=" + zipCode;
+    }
+
+    @Override
+    public String getDeleteCondition() {
+        return "zip_code=" + zipCode;
+    }
+
+    @Override
+    public String getDeleteConditionForItem() {
+        return "zip_code=" + zipCode;
+    }
+
+    @Override
+    public String getUpdateCondition() {
+        return "zip_code=" + zipCode;
+    }
+
+    @Override
+    public String setAttributes() {
+        return "zip_code='" + zipCode + "', name='" + name + "'";
+    }
+
+    @Override
+    public List<GenericEntity> getList(ResultSet rs) throws Exception {
+        List<GenericEntity> list = new ArrayList<>();
+        while (rs.next()) {
+            City c = new City();
+            c.setZipCode(rs.getString("zip_code"));
+            c.setName(rs.getString("name"));
+            list.add(c);
+        }
+        return list;
+    }
+
+    @Override
+    public String getSpecificSelectCondition() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

@@ -4,6 +4,7 @@
  */
 package commonlib.domain;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  *
  * @author anavu
  */
-public class Person {
+public class Person implements Serializable {
     private Long personID;
     private String firstname;
     private String lastname;
