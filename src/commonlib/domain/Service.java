@@ -155,6 +155,7 @@ public class Service implements Serializable, GenericEntity {
         List<GenericEntity> list = new ArrayList<>();
         while (rs.next()) {
             Service s = new Service();
+            s.setServiceID(rs.getLong("id"));
             s.setName(rs.getString("name"));
             s.setFee(rs.getBigDecimal("fee"));
             s.setDuration(rs.getInt("duration"));

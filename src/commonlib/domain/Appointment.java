@@ -131,7 +131,7 @@ public class Appointment implements Serializable, GenericEntity {
 
     @Override
     public String getColumnNamesForInsert() {
-        return "date_time, dog_id, salon_id, total_fee, total_duration, ";
+        return "date_time, dog_id, salon_id, total_fee, total_duration";
 
     }
 
@@ -139,7 +139,7 @@ public class Appointment implements Serializable, GenericEntity {
     public String getInsertValues() {
         return "'" + java.sql.Timestamp.valueOf(dateTime) + "', '"
                 + dog.getDogID() + "', '" + salon.getSalonID() + "', '"
-                + totalFee + "', '" + totalDuration + "'";
+                + totalFee.doubleValue() + "', '" + totalDuration + "'";
     }
 
     // UNSUPPORTED
@@ -187,7 +187,7 @@ public class Appointment implements Serializable, GenericEntity {
         return "date_time='" + java.sql.Timestamp.valueOf(dateTime)  + 
                 "', dog_id='" + dog.getDogID() + 
                 "', salon_id='" + salon.getSalonID() +
-                "', total_fee='" + totalFee +
+                "', total_fee='" + totalFee.doubleValue() +
                 "', total_duration='" + totalDuration + "'";
     }
 
