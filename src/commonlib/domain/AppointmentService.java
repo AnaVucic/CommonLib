@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package commonlib.domain;
 
 import java.io.Serializable;
@@ -109,7 +105,7 @@ public class AppointmentService implements Serializable, GenericEntity {
 
     @Override
     public String getDeleteCondition() {
-        return "appointment_id=" + appointment;
+        return "appointment_id=" + appointment + "AND service_id=" + service ;
     }
 
     @Override
