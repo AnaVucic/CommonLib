@@ -134,7 +134,7 @@ public class Dog implements Serializable, GenericEntity{
 
     @Override
     public String getSelectCondition() {
-        return "id="+ dogID;
+        return "person_id="+ person.getPersonID();
     }
 
     @Override

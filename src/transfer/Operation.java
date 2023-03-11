@@ -49,4 +49,6 @@ public enum Operation implements Serializable{
     FIND_APPOINTMENT_SERVICES,
     EDIT_APPOINTMENT_SERVICE, //?
     DELETE_APPOINTMENT_SERVICE,
+    
+    GET_ALL_BREEDS
 }
