@@ -193,5 +193,4 @@ public class Person implements Serializable, GenericEntity {
     public String getSpecificSelectCondition() {
         return "";
     }
-
 }

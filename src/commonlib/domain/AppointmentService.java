@@ -105,7 +105,7 @@ public class AppointmentService implements Serializable, GenericEntity {
 
     @Override
     public String getDeleteCondition() {
-        return "appointment_id=" + appointment + "AND service_id=" + service ;
+        return "appointment_id=" + appointment + " AND service_id=" + service ;
     }
 
     @Override
@@ -138,7 +138,7 @@ public class AppointmentService implements Serializable, GenericEntity {
     // UNSUPPORTED
     @Override
     public String getSpecificSelectCondition() {
-        return "";
+        return "appointment_id=" + appointment;
     }
 
 }

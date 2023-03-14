@@ -12,16 +12,15 @@ import java.util.Objects;
  *
  * @author anavu
  */
-public class Dog implements Serializable, GenericEntity{
-    
+public class Dog implements Serializable, GenericEntity {
+
     private Long dogID;
     private Person person;
     private Breed breed;
     private String name;
-    
-    
-    public Dog(){
-        
+
+    public Dog() {
+
     }
 
     public Dog(Long dogID, Person person, String name, Breed breed) {
@@ -30,8 +29,6 @@ public class Dog implements Serializable, GenericEntity{
         this.name = name;
         this.breed = breed;
     }
-
-    
 
     public Long getDogID() {
         return dogID;
@@ -48,7 +45,7 @@ public class Dog implements Serializable, GenericEntity{
     public void setPerson(Person person) {
         this.person = person;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -95,7 +92,7 @@ public class Dog implements Serializable, GenericEntity{
 
     @Override
     public String toString() {
-        return name + ", " + breed + "("+ person.getFirstname() +" "+person.getLastname() +")";
+        return name + ", " + breed + "(" + person.getFirstname() + " " + person.getLastname() + ")";
     }
 
     @Override
@@ -110,9 +107,9 @@ public class Dog implements Serializable, GenericEntity{
 
     @Override
     public String getInsertValues() {
-        return "'" + person.getPersonID() + "', '" +
-                breed.getBreedID() + "', '" +
-                name + "'";
+        return "'" + person.getPersonID() + "', '"
+                + breed.getBreedID() + "', '"
+                + name + "'";
     }
 
     // UNSUPPORTED
@@ -120,11 +117,11 @@ public class Dog implements Serializable, GenericEntity{
     public String getInsertValuesUnprepared() {
         return null;
     }
-    
+
     // UNSUPPORTED
     @Override
     public void prepareStatement(PreparedStatement statement) throws SQLException {
-        
+
     }
 
     @Override
@@ -134,49 +131,49 @@ public class Dog implements Serializable, GenericEntity{
 
     @Override
     public String getSelectCondition() {
-        return "person_id="+ person.getPersonID();
+        return "id=" + dogID;
     }
 
     @Override
     public String getDeleteCondition() {
-        return "id="+ dogID;
+        return "id=" + dogID;
     }
 
     @Override
     public String getDeleteConditionForItem() {
-        return "id="+ dogID;
+        return "id=" + dogID;
     }
 
     @Override
     public String getUpdateCondition() {
-        return "id="+ dogID;
+        return "id=" + dogID;
     }
 
     @Override
     public String setAttributes() {
-        return "person_id='" + person.getPersonID() + 
-                "', breed_id='" + breed.getBreedID() +
-                "', name='" + name + "'";
-                
+        return "person_id='" + person.getPersonID()
+                + "', breed_id='" + breed.getBreedID()
+                + "', name='" + name + "'";
+
     }
 
     @Override
     public List<GenericEntity> getList(ResultSet rs) throws Exception {
         List<GenericEntity> list = new ArrayList<>();
-        while(rs.next()){
+        while (rs.next()) {
             Dog d = new Dog();
             d.setDogID(rs.getLong("id"));
-            
+
             Person p = new Person();
             p.setPersonID(rs.getLong("person_id"));
             d.setPerson(p);
-            
+
             Breed b = new Breed();
             b.setBreedID(rs.getLong("breed_id"));
             d.setBreed(b);
-            
+
             d.setName(rs.getString("name"));
-            
+
             list.add(d);
         }
         return list;
@@ -185,13 +182,7 @@ public class Dog implements Serializable, GenericEntity{
     // UNSUPPORTED
     @Override
     public String getSpecificSelectCondition() {
-        return "";
+        return "person_id=" + person.getPersonID();
     }
 
-    
-
-    
-    
-
-   
 }

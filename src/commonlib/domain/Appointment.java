@@ -214,10 +214,9 @@ public class Appointment implements Serializable, GenericEntity {
         return list;
     }
 
-    // UNSUPPORTED
     @Override
     public String getSpecificSelectCondition() {
-        return "";
+        return "dog_id=" + dog.getDogID();
     }
 
 }
